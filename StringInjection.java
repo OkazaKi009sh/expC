@@ -18,21 +18,23 @@ public class StringInjection {
 		String output = example2;
 		try {
 			File file = new File(output);
-			 pw = new PrintWriter(file);
+			pw = new PrintWriter(file);
 			fr = new FileReader(path);
 			br = new BufferedReader(fr);
 			String str = null;
 			String zero = "";
 			int count = 0;
 			while((str = br.readLine()) != null) {
-				String hex = Integer.toHexString(count);
-				for(int i=0;i<4-hex.length();i++) {
-					zero += "0";
+				if(!str.equals("")) {
+					String hex = Integer.toHexString(count);
+					for(int i=0;i<4-hex.length();i++) {
+						zero += "0";
+					}
+					str = zero + hex + " " + str;
+					pw.println(str);
+					zero = "";
+					count++;
 				}
-				str = zero + hex + " " + str;
-				pw.println(str);
-				zero = "";
-				count++;
 			}
 			fr.close();
 			br.close();
